@@ -1,5 +1,6 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:8088/";
+import { config } from '../config/config';
+const BASE_URL = "http://localhost:8081/";
 
 const products = [
    {id: 1, title: 'Apple iPhone 8 Plus Gold 256GB 4G', description: 'Meld style and practicality with the Apple iPhone 8 Plus smartphone', price: '649.54', image: 'https://i.ebayimg.com/images/g/2tQAAOSwnhldR6hD/s-l640.jpg', amount: 5},
@@ -15,12 +16,21 @@ export function getProducts() {
 export function getCartProducts(cart) {
   // return axios
   //   .post(BASE_URL + "api/products", { cart })
-  //   .then(response => response.data);
+  //   .then(r esponse => response.data);
   return Promise.resolve(products);
 }
 
-export function isAuthenticated() {
+export function isAuthenticated(username) {
+ 
   return true;
+}
+
+export function getUserRole(username) {
+   axios.get(BASE_URL+'api/v1/users/username/'+username, config.authToken)
+           .then(response =>{
+             console.log(response.data.params.user.role.roleName);
+            return response.data.params.user.role.roleName;
+          });
 }
 
 export function login(date) {
