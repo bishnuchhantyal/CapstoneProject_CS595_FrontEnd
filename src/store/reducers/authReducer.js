@@ -7,6 +7,7 @@ import { userConstants } from '../../_constants/userConstants';
   export default function(state = initialState, action) {
     switch (action.type) {
       case userConstants.LOGIN_SUCCESS:
+        console.log('inside aut reducer '+action)
         return {
           ...state,
           userAuth: action.user

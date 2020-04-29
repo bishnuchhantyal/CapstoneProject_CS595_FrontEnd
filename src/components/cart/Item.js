@@ -25,7 +25,7 @@ class Item extends Component {
       return;
     }
 
-    if (this.state.quantity != e.target.value) {
+    if (this.state.quantity !== e.target.value) {
       this.setState({
         quantity: e.target.value,
         btnVisible: true

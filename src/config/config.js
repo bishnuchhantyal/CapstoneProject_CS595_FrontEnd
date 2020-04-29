@@ -7,6 +7,7 @@ if(user!==null){
 }
 export const config = {
     baseUrl: 'http://localhost:8081',
+    // baseUrl: 'http://onlineshoppingcartdemousingspringboo-env.eba-7qt2bm2h.us-east-2.elasticbeanstalk.com',
     grantType: 'password',
     clientId: 'ecommerce-read-write-client',
     authUser: 'ecommerce-read-write-client',

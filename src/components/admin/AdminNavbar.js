@@ -11,10 +11,7 @@ class AdminNavbar extends Component {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="nav navbar-nav navbar-right">
                         <li className="nav-item">
-                            <NavLink to="/product">Product</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink to="/product-list">Product List</NavLink>
+                            <NavLink to="/product-list">Product</NavLink>
                         </li>
                         <li><NavLink to="/"
                             onClick={() => logout()}>Logout</NavLink></li>

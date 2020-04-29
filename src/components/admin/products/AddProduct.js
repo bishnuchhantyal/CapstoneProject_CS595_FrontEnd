@@ -33,6 +33,7 @@ class AddProduct extends Component {
         }
 
        this.props.saveProduct(product);
+       this.props.history.push('/product-list')
     }
 
     render () {

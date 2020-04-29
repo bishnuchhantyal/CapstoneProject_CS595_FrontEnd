@@ -11,9 +11,10 @@ export const login = (username, password) => {
         params.set('username', username);
         params.set('password', password);
 
+        console.log('roleeee vvv '+localStorage.getItem('roleName'))
         axios.post(config.baseUrl + '/oauth/token', params, { headers: { Authorization: config.initAuthorization } })
             .then((res) => {
-                console.log("RESPONSE RECEIVED: ", res);
+                console.log("RESPONSE RECEIVED: ", res.data);
                 let data = res.data;
                 let usersSession = localStorage.getItem('aimsUser');
                 if (usersSession === null) {
@@ -27,10 +28,12 @@ export const login = (username, password) => {
                     localStorage.setItem('aimsUser', JSON.stringify(objUserAuth));
                 }
                 let role = localStorage.getItem('roleName');
+                console.log('roleeee '+role)
                if(role === null){
                 axios.get(config.baseUrl + '/api/v1/users/username/' + username, {headers: { Authorization: "Bearer " +  data.access_token }})
                 .then(response => {
                     localStorage.setItem('roleName', response.data.params.user.role.roleName);
+                    console.log('role is in side auth action'+localStorage.getItem('roleName'));
                 }).catch((error) => {
                     console.log("AXIOS ERRORRRR: ", error);
                     dispatch(failure(error))

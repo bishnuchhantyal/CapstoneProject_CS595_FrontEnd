@@ -14,14 +14,15 @@ const productReducer = (state = initialState, action) => {
 
         case productConstants.PRODUCT_ADD:
             return state;
-
+        case productConstants.PRODUCT_UPDATE:
+            return state;
         case productConstants.PRODUCT_LIST:
-            console.log("action" +action.products.params.products)
             return {
-          ...state,
-          products: action.products.params
-        };
-
+                ...state,
+                products: action.products.params.products
+            };
+        case productConstants.PRODUCT_DELETE:
+            return state;
         default:
             return state;
     }
