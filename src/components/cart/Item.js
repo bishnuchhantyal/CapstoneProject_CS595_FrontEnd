@@ -52,14 +52,15 @@ class Item extends Component {
 
   render() {
     const { item } = this.props;
+    console.log('item is: '+JSON.stringify(item))
     return (
       <div className="row">
         <div className="col-xs-2">
-          <img className="img-responsive" src={item.product.image} alt="" />
+          <img className="img-responsive" src={`data:image/png;base64,${item.product.image}`} alt="" height="50px" width="50px"/>
         </div>
         <div className="col-xs-4">
           <h4 className="product-name">
-            <strong>{item.product.price}</strong>
+            <strong>{item.product.title}</strong>
           </h4>
         </div>
         <div className="col-xs-6">

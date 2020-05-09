@@ -7,11 +7,17 @@ class AdminNavbar extends Component {
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-inverse bg-dark">
-                <NavLink className="navbar-brand" to="/">Shopping cart</NavLink>
+                <NavLink className="navbar-brand" to="#">Shopping cart</NavLink>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="nav navbar-nav navbar-right">
                         <li className="nav-item">
                             <NavLink to="/product-list">Product</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink to="/order-list">Order</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink to="/user-list">User</NavLink>
                         </li>
                         <li><NavLink to="/"
                             onClick={() => logout()}>Logout</NavLink></li>

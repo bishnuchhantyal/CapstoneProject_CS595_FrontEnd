@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateProduct, getProductById } from "../../../store/actions/productActions"
+import { updateProduct } from "../../../store/actions/productActions"
 
 class EditProduct extends Component {
 
@@ -8,64 +8,50 @@ class EditProduct extends Component {
         super(props);
 
         this.state = {
-            id: '',
-            title: '',
-            description: '',
-            price: '',
-            image: '',
+                id: '',
+                title: '',
+                description: '',
+                price: '',
+                image: ''
         }
 
-    }
-    componentDidMount() {
-        this.getProductById();
-    }
-
-    getProductById = () => {
-
-        getProductById(window.localStorage.getItem('id'))
-            .then(p => {
-                let product = p.data.params.product;
-                this.setState({
-                    id: product.id,
-                    title: product.title,
-                    description: product.description,
-                    price: product.price,
-                    image: product.image, 
-                })
-            }).catch((error) => {
-                console.log("AXIOS ERROR: ", error);
-            })
     }
 
     handleChange = (e) => {
         this.setState({
+            ...this.state,
             [e.target.name]: e.target.value
         });
     }
 
+    componentDidMount (){
+        let prod = this.props.location.state.product[0];
+        this.setState({
+            id: prod.id,
+            title: prod.title,
+            description: prod.description,
+            price: prod.price,
+            image: prod.image
+
+        })
+    }
+
     updateProduct = (e) => {
         e.preventDefault();
-
-        let product = {
-            id: this.state.id,
-            title: this.state.title,
-            description: this.state.description,
-            price: this.state.price,
-            image: this.state.image,
-        }
-        this.props.updateProduct(product);
+        this.props.updateProduct(this.state);
         this.props.history.push('/product-list');
     }
 
     render() {
+        
         return (
             <div className="container">
-                <div className="panel panel-default">
-                    <div className="panel-body">
-                        <div className="row jumbotron">
+                <div className="panel">
+                    <div className="panel-default">
+                        <div className="row">
                             <div className="col-md-2"></div>
-                            <div className="col-md-6">
-                                <form className="form-horizontal">
+                            <div className="col-md-8 jumbotron">
+                                <form action="" className="form-horizontal">
                                     <fieldset>
                                         <legend>Product Edit Form</legend>
                                         <div className="form-group">
@@ -105,7 +91,7 @@ class EditProduct extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateProduct: (product) => { dispatch(updateProduct(product)) },
+        updateProduct: (product) => { dispatch(updateProduct(product)) }
     }
 }
 

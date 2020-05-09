@@ -33,8 +33,12 @@ class Navbar extends Component {
                                 <li><NavLink to="/login">Login</NavLink></li>
                                 : <li><NavLink to="/"
                                     onClick={() => logout()}>Logout</NavLink></li>
-                            }
 
+                            }
+                            {usersSession === null ?
+                                <li><NavLink to="/sign-up">SignUp</NavLink></li>
+                                : ''
+                            }
 
                         </ul>
                     </div>

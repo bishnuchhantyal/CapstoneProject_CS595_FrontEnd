@@ -11,15 +11,20 @@ class AddProduct extends Component {
             title: '',
             description: '',
             price: '',
-            image: '',
+            file: '',
         }
 
     }
 
-    handleChange = (e) => {
+    handleChange = (event) => {
+        
+        const target = event.target;
+        const value = target.type === 'file' ? event.target.files[0] : target.value;
+        const name = target.name;
         this.setState({
-            [e.target.name]: e.target.value
+            [name]: value
         });
+       
     }
 
     saveProduct = (e) => {
@@ -29,11 +34,10 @@ class AddProduct extends Component {
             title: this.state.title,
             description: this.state.description,
             price: this.state.price,
-            image: this.state.image,
+            file:this.state.file
         }
-
        this.props.saveProduct(product);
-       this.props.history.push('/product-list')
+       this.props.history.push('/product-list');
     }
 
     render () {
@@ -49,19 +53,19 @@ class AddProduct extends Component {
                                     <legend>Product Form</legend>
                                     <div className="form-group">
                                         <label>Title</label>
-                                        <input type="text" name="title" value={this.state.title} onChange={this.handleChange} className="form-control" />
+                                        <input type="text" name="title"  onChange={this.handleChange} className="form-control" />
                                     </div>
                                     <div className="form-group">
                                         <label>Description</label>
-                                        <input type="text" name="description" value={this.state.description} onChange={this.handleChange} className="form-control" />
+                                        <input type="text" name="description"  onChange={this.handleChange} className="form-control" />
                                     </div>
                                     <div className="form-group">
                                         <label>Price</label>
-                                        <input type="number" name="price" value={this.state.price} onChange={this.handleChange} className="form-control" />
+                                        <input type="number" name="price"  onChange={this.handleChange} className="form-control" />
                                     </div>
                                     <div className="form-group">
                                         <label>Image</label>
-                                        <input type="text" name="image" value={this.state.image} onChange={this.handleChange} className="form-control" />
+                                        <input type="file" name="file"  onChange={this.handleChange} className="form-control" />
                                     </div>
                                     <div className="form-group">
                                         <input type="submit" value="Submit" onClick={this.saveProduct} className="btn btn-success" />

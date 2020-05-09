@@ -3,15 +3,19 @@ import { config } from '../../config/config'
 import { productConstants } from '../../_constants/productConstants';
 
 export const saveProduct = (product) => {
-
     return (dispatch) => {
         let usersSession = JSON.parse(localStorage.getItem('aimsUser'));
 
         if (usersSession !== null) {
-            axios.post(config.baseUrl + '/api/v1/products', product, config.authToken)
+            let formData = new FormData();
+            formData.append("file", product.file)
+            formData.append("title", product.title)
+            formData.append("price", product.price)
+            formData.append("description", product.description)
+            axios.post(config.baseUrl + '/api/v1/products', formData, config.authToken)
                 .then((res) => {
                     console.log("RESPONSE RECEIVED: ", res);
-                    dispatch(success(res.data));
+                    dispatch(success(res.data));  
                 })
                 .catch((error) => {
                     console.log("AXIOS ERROR: ", error);
@@ -59,12 +63,6 @@ export const listProduct = () => {
             function success(products) { return { type: productConstants.PRODUCT_LIST, products } }
     }
 }
-
-export const getProductById = (id) => {
-    return axios.get(config.baseUrl+'/api/v1/products/'+id, config.authToken);       
-}
-
-
 
 export const deleteProduct = (id) => {
 

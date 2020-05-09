@@ -5,4 +5,6 @@ export const productConstants = {
     PRODUCT_LIST: 'PRODUCT_LIST',
     PRODUCT_DELETE: 'PRODUCT_DELETE',
     PRODUCT_GET_BY_ID: 'PRODUCT_GET_BY_ID',
+
+    ADD_TO_CART: "CART_ADD",
 }

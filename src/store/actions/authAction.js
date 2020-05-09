@@ -23,26 +23,29 @@ export const login = (username, password) => {
                         expires_in: data.expires_in,
                         refresh_token: data.refresh_token,
                         scope: data.scope,
-                        token_type: data.token_type
+                        token_type: data.token_type,
                     }
                     localStorage.setItem('aimsUser', JSON.stringify(objUserAuth));
+                    dispatch(success(objUserAuth));
                 }
-                let role = localStorage.getItem('roleName');
-                console.log('roleeee '+role)
+                
+               let role = localStorage.getItem('roleName');
                if(role === null){
                 axios.get(config.baseUrl + '/api/v1/users/username/' + username, {headers: { Authorization: "Bearer " +  data.access_token }})
                 .then(response => {
-                    localStorage.setItem('roleName', response.data.params.user.role.roleName);
-                    console.log('role is in side auth action'+localStorage.getItem('roleName'));
+                    let roleName =  response.data.params.user.role.roleName;
+                    localStorage.setItem('roleName', roleName);
+                    if(roleName==='ROLE_ADMIN'){
+                        window.location.replace('/product-list')
+                    }else{
+                        window.location.replace('/')
+                    }
                 }).catch((error) => {
                     console.log("AXIOS ERRORRRR: ", error);
                     dispatch(failure(error))
                 })
                }
-                dispatch(success(res.data));
-                window.location.replace('/')
-            })
-            .catch((error) => {
+            }).catch((error) => {
                 console.log("AXIOS ERROR: ", error);
                 dispatch(failure(error))
             })
@@ -52,7 +55,6 @@ export const login = (username, password) => {
     function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
 }
-
 
 export const logout = () => {
     localStorage.clear();

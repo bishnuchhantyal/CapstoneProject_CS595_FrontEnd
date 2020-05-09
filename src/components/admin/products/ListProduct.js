@@ -14,8 +14,10 @@ class ListProduct extends Component {
     }
 
     editProduct = (id) => {
-        window.localStorage.setItem('id', id);
-        this.props.history.push('/product-edit');
+      let p=  this.props.products.filter(product =>{
+             return product.id === id;
+        })
+        this.props.history.push('/product-edit', {product: p});
     }
 
     render() {
@@ -42,7 +44,7 @@ class ListProduct extends Component {
                                     <td>{product.title}</td>
                                     <td>{product.description}</td>
                                     <td>{product.price}</td>
-                                    <td>{product.image}</td>
+                                    <td><img className="img-responsive" src={`data:image/png;base64,${product.image}`} alt="" height="50px" width="50px"/></td>
                                     {<td>
                                         <button className="btn btn-primary" onClick={() => this.editProduct(product.id)}>Edit</button>
                                         <button className="btn btn-danger" onClick={() => this.props.deleteProduct(product.id)}>Delete</button>
@@ -58,8 +60,9 @@ class ListProduct extends Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log(JSON.stringify(state))
     return {
-        products: state.product.products
+        products: state.products.products,
     }
 }
 

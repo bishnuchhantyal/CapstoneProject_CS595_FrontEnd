@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import Item from './Item';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
- 
-class Cart extends Component
-{
+
+class Cart extends Component {
+
+    constructor(props){
+        super(props);
+    }
+
+
+    handleCheckout = () => {
+      this.props.history.push('/checkout',{products: this.props.cart});
+    }
+
     render() {
- 
+
         let total = 0;
 
         this.props.cart.map(item => total += item.product.price * item.quantity);
@@ -28,51 +36,49 @@ class Cart extends Component
                     <div className="row text-center">
                         <div className="col-xs-11">
                             <h4 className="text-right">Total <strong>${total.toFixed(3)}</strong></h4>
-                            <Link to="/checkout">
-                <button className="btn btn-success float-right">Checkout</button></Link>
+                            <button className="btn btn-success float-right" onClick={this.handleCheckout}>Checkout</button>
                         </div>
- 
                     </div>
                 </div>
             </div>
- 
+
         ) : (
-            <div className="panel-body">
-                <p>Cart is empty</p>
-            </div>
-        )
+                <div className="panel-body">
+                    <p>Cart is empty</p>
+                </div>
+            )
 
         return (
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-12 col-xs-12">
-                            <div className="panel panel-info">
-                                <div className="panel-heading">
-                                    <div className="panel-title">
-                                        <div className="row">
-                                            <div className="col-xs-6">
-                                                <h5><span className="glyphicon glyphicon-shopping-cart"></span> My Shopping Cart</h5>
-                                            </div>
- 
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-12 col-xs-12">
+                        <div className="panel panel-info">
+                            <div className="panel-heading">
+                                <div className="panel-title">
+                                    <div className="row">
+                                        <div className="col-xs-6">
+                                            <h5><span className="glyphicon glyphicon-shopping-cart"></span> My Shopping Cart</h5>
                                         </div>
+
                                     </div>
                                 </div>
-
-                                { cart }
-
                             </div>
+
+                            {cart}
+
                         </div>
                     </div>
                 </div>
+            </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    
+   
     return {
         cart: state.cart.cart
     }
 }
- 
-export default connect(mapStateToProps) (Cart);
+
+export default connect(mapStateToProps)(Cart);  

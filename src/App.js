@@ -9,8 +9,11 @@ import AddProduct from './components/admin/products/AddProduct';
 import EditProduct from './components/admin/products/EditProduct';
 import ListProduct from './components/admin/products/ListProduct';
 import AdminNavbar from './components/admin/AdminNavbar';
+import ListOrder from './components/admin/orders/ListOrder';
+import ListUser from './components/admin/ListUser';
+import SignUp from './components/SignUp';
 
-class  App extends Component {
+class App extends Component {
 
   constructor(props){
     super(props);
@@ -43,6 +46,9 @@ class  App extends Component {
             <Route exact path="/product-add" component={AddProduct} />
             <Route exact path="/product-edit" component={EditProduct} />
             <Route exact path="/product-list" component={ListProduct} />
+            <Route exact path="/order-list" component={ListOrder} />
+            <Route exact path="/user-list" component={ListUser} />
+            <Route exact path="/sign-up" component={SignUp} />
           </Switch>
         </div>
       </BrowserRouter>
